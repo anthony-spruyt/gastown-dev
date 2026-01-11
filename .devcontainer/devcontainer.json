@@ -1,6 +1,6 @@
 {
   "name": "Ubuntu",
-  "image": "mcr.microsoft.com/devcontainers/base:jammy",
+  "image": "ghcr.io/anthony-spruyt/gastown-dev:1.1.3",
   "runArgs": ["--env-file", "${localEnv:HOME}/.secrets/.env"],
   "mounts": [
     "source=${localEnv:HOME}/.ssh/agent.sock,target=/ssh-agent,type=bind",
@@ -11,19 +11,33 @@
     "SSH_AUTH_SOCK": "/ssh-agent"
   },
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker": {},
-    "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/devcontainers/features/python:1": {},
-    "ghcr.io/devcontainers/features/go:1": {}
+    "ghcr.io/devcontainers/features/docker-in-docker": {}
   },
   "initializeCommand": "bash -lc 'eval $(keychain --eval --agents ssh id_ed25519); flock -x ~/.ssh/agent.lock -c \"rm -rf $HOME/.ssh/agent.sock; ln -sf $SSH_AUTH_SOCK $HOME/.ssh/agent.sock\"'",
   "postCreateCommand": "bash -lc \"cd ${containerWorkspaceFolder} && ./.devcontainer/post-create.sh\"",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/gastown,type=bind",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/gastown-dev,type=bind",
 
   "customizations": {
     "vscode": {
-      "workspace": "gastown.code-workspace",
-      "extensions": []
+      "workspace": "gastown-dev.code-workspace",
+      "extensions": [
+        "anthropic.claude-code",
+        "bierner.markdown-mermaid",
+        "blueglassblock.better-json5",
+        "esbenp.prettier-vscode",
+        "hashicorp.terraform",
+        "jetmartin.bats",
+        "mhutchie.git-graph",
+        "redhat.vscode-yaml",
+        "task.vscode-task",
+        "tim-koehler.helm-intellisense"
+      ]
+    }
+  },
+  "portsAttributes": {
+    "8080": {
+      "label": "Gas Town Dashboard",
+      "onAutoForward": "openBrowser"
     }
   }
 }

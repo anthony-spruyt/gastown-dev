@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-WORKSPACE="/workspaces/gastown"
+WORKSPACE="/workspaces/gastown-dev"
 TARGET="$WORKSPACE/gt"
 MAX_RETRIES=5
 
@@ -22,9 +22,11 @@ done
 
 echo "Installing Gas Town..."
 mkdir -p "$TARGET"
+cd "$TARGET"
 gt install "$TARGET" -f
 
 echo "Initializing git..."
+# gt git-init --github=anthony-spruyt/gastown-hq
 gt git-init
 
 echo "Adding rigs..."
@@ -35,6 +37,8 @@ gt config agent set claude "claude --model opus --dangerously-skip-permissions"
 gt config agent set claude-opus "claude --model opus --dangerously-skip-permissions"
 gt config agent set claude-sonnet "claude --model sonnet --dangerously-skip-permissions"
 gt config agent set claude-haiku "claude --model haiku --dangerously-skip-permissions"
+
+gt config default-agent claude
 
 echo "Adding crew..."
 gt crew add rig_amos_burton --rig rig_claude_config
