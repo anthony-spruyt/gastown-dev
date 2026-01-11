@@ -44,3 +44,7 @@ export PATH="$PATH:/usr/local/go/bin:$HOME/go/bin"
 echo ""
 echo "Running setup verification..."
 "$SCRIPT_DIR/verify-setup.sh"
+
+echo ""
+echo "Bootstrapping..."
+"$SCRIPT_DIR/bootstrap.sh"

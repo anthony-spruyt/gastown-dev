@@ -49,29 +49,29 @@ else
   fail "SSH agent not available or no keys loaded"
 fi
 
-# Check Go version (1.24+)
+# Check Go version (1.23+)
 if command -v go &>/dev/null; then
   GO_VERSION=$(go version | grep -oP 'go\K[0-9]+\.[0-9]+' | head -1)
   GO_MAJOR=$(echo "$GO_VERSION" | cut -d. -f1)
   GO_MINOR=$(echo "$GO_VERSION" | cut -d. -f2)
-  if [[ "$GO_MAJOR" -gt 1 ]] || { [[ "$GO_MAJOR" -eq 1 ]] && [[ "$GO_MINOR" -ge 24 ]]; }; then
-    pass "Go version $GO_VERSION (>= 1.24)"
+  if [[ "$GO_MAJOR" -gt 1 ]] || { [[ "$GO_MAJOR" -eq 1 ]] && [[ "$GO_MINOR" -ge 23 ]]; }; then
+    pass "Go version $GO_VERSION (>= 1.23)"
   else
-    fail "Go version $GO_VERSION (requires >= 1.24)"
+    fail "Go version $GO_VERSION (requires >= 1.23)"
   fi
 else
   fail "Go is not installed"
 fi
 
-# Check Git version (2.20+)
+# Check Git version (2.25+)
 if command -v git &>/dev/null; then
   GIT_VERSION=$(git --version | grep -oP '[0-9]+\.[0-9]+' | head -1)
   GIT_MAJOR=$(echo "$GIT_VERSION" | cut -d. -f1)
   GIT_MINOR=$(echo "$GIT_VERSION" | cut -d. -f2)
-  if [[ "$GIT_MAJOR" -gt 2 ]] || { [[ "$GIT_MAJOR" -eq 2 ]] && [[ "$GIT_MINOR" -ge 20 ]]; }; then
-    pass "Git version $GIT_VERSION (>= 2.20)"
+  if [[ "$GIT_MAJOR" -gt 2 ]] || { [[ "$GIT_MAJOR" -eq 2 ]] && [[ "$GIT_MINOR" -ge 25 ]]; }; then
+    pass "Git version $GIT_VERSION (>= 2.25)"
   else
-    fail "Git version $GIT_VERSION (requires >= 2.20)"
+    fail "Git version $GIT_VERSION (requires >= 2.25)"
   fi
 else
   fail "Git is not installed"
@@ -104,6 +104,14 @@ if command -v bd &>/dev/null; then
   pass "Beads (bd) version $BD_VERSION"
 else
   fail "Beads (bd) is not installed"
+fi
+
+# Check Claude Code CLI
+if command -v claude &>/dev/null; then
+  CLAUDE_VERSION=$(claude --version 2>&1 | grep -oP '[0-9]+\.[0-9]+\.[0-9]+' | head -1 || echo "unknown")
+  pass "Claude Code CLI version $CLAUDE_VERSION"
+else
+  fail "Claude Code CLI is not installed"
 fi
 
 echo ""

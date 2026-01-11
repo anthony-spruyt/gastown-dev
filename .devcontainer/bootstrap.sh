@@ -1,36 +1,42 @@
 #!/bin/bash
 set -euo pipefail
 
-cd /workspaces/gastown
+WORKSPACE="/workspaces/gastown"
+TARGET="$WORKSPACE/gt"
+MAX_RETRIES=5
 
-# Init git only if needed
-git rev-parse --is-inside-work-tree >/dev/null 2>&1 || git init
+cd "$WORKSPACE"
 
-# Clean up
-TARGET="/workspaces/gastown/gt"
-
+echo "Cleaning up previous installs..."
+retries=0
 while [ -d "$TARGET" ]; do
-    echo "Attempting to delete $TARGET..."
+    if [ $retries -ge $MAX_RETRIES ]; then
+        echo "ERROR: Failed to delete $TARGET after $MAX_RETRIES attempts"
+        exit 1
+    fi
+    echo "Attempting to delete $TARGET (attempt $((retries + 1))/$MAX_RETRIES)..."
     sudo rm -rf "$TARGET"
     sleep 1
+    retries=$((retries + 1))
 done
 
-echo "gt folder deleted."
+echo "Installing Gas Town..."
+mkdir -p "$TARGET"
+gt install "$TARGET" -f
 
-mkdir -p /workspaces/gastown/gt
+echo "Initializing git..."
+gt git-init
 
-cd /workspaces/gastown/gt
-
-# Create gas town instance
-gt install /workspaces/gastown/gt -f
-
-# Add claude config rig
+echo "Adding rigs..."
 gt rig add rig_claude_config https://github.com/anthony-spruyt/claude-config.git
 
-# Configure agents
+echo "Configuring agents..."
+gt config agent set claude "claude --model opus --dangerously-skip-permissions"
 gt config agent set claude-opus "claude --model opus --dangerously-skip-permissions"
 gt config agent set claude-sonnet "claude --model sonnet --dangerously-skip-permissions"
 gt config agent set claude-haiku "claude --model haiku --dangerously-skip-permissions"
 
-# Add crew member to claude config rig
+echo "Adding crew..."
 gt crew add rig_amos_burton --rig rig_claude_config
+
+echo "Bootstrap complete!"
