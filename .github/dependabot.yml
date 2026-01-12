@@ -6,6 +6,8 @@ updates:
     directory: "/"
     schedule:
       interval: daily
+    allow:
+      - dependency-type: "direct"
 
   # GitHub Actions
   - package-ecosystem: "github-actions"
@@ -16,9 +18,13 @@ updates:
       actions:
         patterns:
           - "*"
+    allow:
+      - dependency-type: "direct"
 
   # npm packages in devcontainer
   - package-ecosystem: "npm"
     directory: "/.devcontainer"
     schedule:
       interval: daily
+    allow:
+      - dependency-type: "direct"
