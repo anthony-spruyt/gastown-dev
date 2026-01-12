@@ -143,6 +143,11 @@ if [[ $FAILED -ne 0 ]]; then
 fi
 
 echo ""
-echo "Bootstrapping..."
-"$SCRIPT_DIR/bootstrap.sh"
+GT_DIR="/workspaces/gastown-dev/gt"
+if [ ! -d "$GT_DIR" ] || [ -z "$(ls -A "$GT_DIR" 2>/dev/null)" ]; then
+  echo "Bootstrapping Gas Town (gt folder is empty or does not exist)..."
+  "$SCRIPT_DIR/bootstrap.sh"
+else
+  echo "Skipping bootstrap - Gas Town already installed at $GT_DIR"
+fi
 

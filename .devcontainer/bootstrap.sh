@@ -43,4 +43,6 @@ gt config default-agent claude
 echo "Adding crew..."
 gt crew add rig_amos_burton --rig rig_claude_config
 
+git add . && git commit -m 'Initial Gas Town HQ'
+
 echo "Bootstrap complete!"
