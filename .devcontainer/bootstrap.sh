@@ -30,7 +30,9 @@ echo "Initializing git..."
 gt git-init
 
 echo "Adding rigs..."
-gt rig add rig_claude_config https://github.com/anthony-spruyt/claude-config.git
+# gt rig add claude_config https://github.com/anthony-spruyt/claude-config.git
+gt rig add container_images https://github.com/anthony-spruyt/container-images.git
+# gt rig add spruyt_labs https://github.com/anthony-spruyt/spruyt-labs.git
 
 echo "Configuring agents..."
 gt config agent set claude "claude --model opus --dangerously-skip-permissions"
@@ -41,7 +43,9 @@ gt config agent set claude-haiku "claude --model haiku --dangerously-skip-permis
 gt config default-agent claude
 
 echo "Adding crew..."
-gt crew add rig_amos_burton --rig rig_claude_config
+# gt crew add anthony --rig claude_config
+gt crew add anthony --rig container_images
+# gt crew add anthony --rig spruyt_labs
 
 git add . && git commit -m 'Initial Gas Town HQ'
 
