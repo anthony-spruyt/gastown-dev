@@ -50,24 +50,66 @@ That's it! The container automatically installs all tools and initializes Gas To
 
 ```
 gastown-dev/
-├── .devcontainer/       # Container config and bootstrap scripts
-│   ├── devcontainer.json
+├── .devcontainer/       # Container configuration
+│   └── devcontainer.json
+├── .taskfiles/          # Task definitions
+│   └── gt/tasks.yaml
+├── scripts/             # Automation scripts
+│   ├── bootstrap.sh     # Initializes Gas Town (supports restore from GitHub)
 │   ├── post-create.sh   # Runs on container creation
-│   ├── bootstrap.sh     # Initializes Gastown
+│   ├── sync-crew.sh     # Syncs crew workspaces with remote
+│   ├── update.sh        # Updates gt and bd tooling
 │   └── dashboard-start.sh
+├── gt.config.yaml       # Gas Town configuration (rigs, agents, crew)
+├── Taskfile.yml         # Task runner configuration
 └── gt/                  # Gas Town HQ (created after bootstrap)
-    ├── rig_claude_config/  # Claude configuration rig
+    ├── <rig>/           # Project rigs (e.g., container_images)
+    │   └── crew/        # Your working directories
     ├── deacon/          # Background orchestration daemon
     ├── mayor/           # Orchestration coordinator
-    ├── polecats/        # Transient worker management
-    └── plugins/         # Town-level plugins
+    └── settings/        # Town-level settings
+```
+
+## Configuration
+
+Edit `gt.config.yaml` to customize your Gas Town setup:
+
+```yaml
+rigs:
+  - name: my_project
+    repo: https://github.com/user/repo.git
+agents:
+  - name: claude
+    command: "claude --model opus --dangerously-skip-permissions"
+defaultAgent: claude
+crew:
+  - name: yourname
+    rigs:
+      - my_project
+hqRemote: user/gastown-hq  # Optional: GitHub repo for HQ backup/restore
 ```
 
 ## Usage
 
+### Task Commands
+
+```bash
+# Bootstrap Gas Town (or restore from existing GitHub HQ)
+task gt:bootstrap
+
+# Sync all crew workspaces with remote
+task gt:sync-crew
+
+# Update gt and bd tooling to latest
+task gt:update
+
+# Start the dashboard
+task gt:dash
+```
+
 ### Start the Dashboard
 ```bash
-./.devcontainer/dashboard-start.sh
+./scripts/dashboard-start.sh
 ```
 Access at http://localhost:8080
 
@@ -76,11 +118,14 @@ Access at http://localhost:8080
 # Check Gas Town status
 gt status
 
-# List available agents
-gt agents
+# List rigs
+gt rig list
 
 # View issues with Beads
 bd list
+
+# Check ready work
+bd ready
 ```
 
 ## Related Repositories
