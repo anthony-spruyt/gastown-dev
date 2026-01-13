@@ -21,6 +21,7 @@ This repository provides a ready-to-use development environment that:
 ## Getting Started
 
 1. Clone this repository:
+
    ```bash
    git clone https://github.com/anthony-spruyt/gastown-dev.git
    cd gastown-dev
@@ -35,13 +36,14 @@ That's it! The container automatically installs all tools and initializes Gas To
 
 ## What's Included
 
-| Tool | Command | Description |
-|------|---------|-------------|
-| Gas Town | `gt` | Agent orchestration framework |
-| Beads | `bd` | AI-native issue tracking |
-| Claude Code | `claude` | Anthropic's CLI for Claude |
+| Tool        | Command  | Description                   |
+| ----------- | -------- | ----------------------------- |
+| Gas Town    | `gt`     | Agent orchestration framework |
+| Beads       | `bd`     | AI-native issue tracking      |
+| Claude Code | `claude` | Anthropic's CLI for Claude    |
 
 ### VS Code Extensions
+
 - Claude Code (official Anthropic extension)
 - Prettier, YAML, Terraform, Helm
 - Git Graph, Markdown Mermaid, BATS testing
@@ -86,7 +88,7 @@ crew:
   - name: yourname
     rigs:
       - my_project
-hqRemote: user/gastown-hq  # Optional: GitHub repo for HQ backup/restore
+hqRemote: user/gastown-hq # Optional: GitHub repo for HQ backup/restore
 ```
 
 ## Usage
@@ -108,12 +110,15 @@ task gt:dash
 ```
 
 ### Start the Dashboard
+
 ```bash
-./scripts/dashboard-start.sh
+task gt:dash
 ```
+
 Access at http://localhost:8080
 
 ### Common Commands
+
 ```bash
 # Check Gas Town status
 gt status
