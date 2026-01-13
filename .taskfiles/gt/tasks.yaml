@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  bootstrap:
+    desc: Bootstraps Gas Town - DANGER - DESTRUCTIVE OPERATION - POSSIBLE DATA LOSS!!!
+    cmds:
+      - bash {{ .PROJECT_DIR }}/scripts/bootstrap.sh
+  dash:
+    desc: 'Launches the dashboard - run via cli - "task gt:dash" DO NOT RUN VIA VSCODE EXTENSION UI!!!'
+    cmds:
+      - bash {{ .PROJECT_DIR }}/scripts/bootstrap.sh
+  sync-crew:
+    desc: Gets latest from the remote for all crew workspaces in rigs
+    cmds:
+      - bash {{ .PROJECT_DIR }}/scripts/sync-crew.sh
+  update:
+    desc: Updates gastown and beads to latest version
+    cmds:
+      - bash {{ .PROJECT_DIR }}/scripts/update.sh

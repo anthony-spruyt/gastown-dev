@@ -21,9 +21,9 @@ updates:
     allow:
       - dependency-type: "direct"
 
-  # npm packages in devcontainer
+  # npm packages in scripts
   - package-ecosystem: "npm"
-    directory: "/.devcontainer"
+    directory: "/scripts"
     schedule:
       interval: daily
     allow:

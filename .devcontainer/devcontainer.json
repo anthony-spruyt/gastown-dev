@@ -1,6 +1,6 @@
 {
-  "name": "Ubuntu",
-  "image": "ghcr.io/anthony-spruyt/gastown-dev:1.1.3",
+  "name": "gastown-dev",
+  "image": "ghcr.io/anthony-spruyt/gastown-dev:1.1.5",
   "runArgs": ["--env-file", "${localEnv:HOME}/.secrets/.env"],
   "mounts": [
     "source=${localEnv:HOME}/.ssh/agent.sock,target=/ssh-agent,type=bind",
@@ -14,7 +14,7 @@
     "ghcr.io/devcontainers/features/docker-in-docker": {}
   },
   "initializeCommand": "bash -lc 'eval $(keychain --eval --agents ssh id_ed25519); flock -x ~/.ssh/agent.lock -c \"rm -rf $HOME/.ssh/agent.sock; ln -sf $SSH_AUTH_SOCK $HOME/.ssh/agent.sock\"'",
-  "postCreateCommand": "bash -lc \"cd ${containerWorkspaceFolder} && ./.devcontainer/post-create.sh\"",
+  "postCreateCommand": "bash -lc \"cd ${containerWorkspaceFolder} && ./scripts/post-create.sh\"",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/gastown-dev,type=bind",
 
   "customizations": {

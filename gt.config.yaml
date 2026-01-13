@@ -1,0 +1,21 @@
+rigs:
+  - name: container_images
+    repo: https://github.com/anthony-spruyt/container-images.git
+  - name: claude_config
+    repo: https://github.com/anthony-spruyt/claude-config.git
+agents:
+  - name: claude
+    command: "claude --model opus --dangerously-skip-permissions"
+  - name: claude-opus
+    command: "claude --model opus --dangerously-skip-permissions"
+  - name: claude-sonnet
+    command: "claude --model sonnet --dangerously-skip-permissions"
+  - name: claude-haiku
+    command: "claude --model haiku --dangerously-skip-permissions"
+defaultAgent: claude
+crew:
+  - name: anthony
+    rigs:
+      - container_images
+      - claude_config
+hqRemote: anthony-spruyt/gastown-hq

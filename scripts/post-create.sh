@@ -48,10 +48,10 @@ fi
 export PATH="$PATH:/usr/local/go/bin:$HOME/go/bin"
 
 echo "Installing Gas Town..."
-go install github.com/steveyegge/gastown/cmd/gt@main
+go install github.com/steveyegge/gastown/cmd/gt@latest
 
 echo "Installing Beads..."
-go install github.com/steveyegge/beads/cmd/bd@main
+go install github.com/steveyegge/beads/cmd/bd@latest
 
 echo "Running devcontainer verification tests..."
 echo ""
