@@ -3,6 +3,6 @@
   "private": true,
   "description": "Global tools for devcontainer",
   "dependencies": {
-    "@anthropic-ai/claude-code": "2.1.23"
+    "@anthropic-ai/claude-code": "2.1.29"
   }
 }
